@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { debounceTime, map, startWith, switchMap, tap } from 'rxjs';
+import { IImagesItem } from 'src/app/models/images-envelope.interface';
 import { ImagesLibraryService } from 'src/app/services/images-library.service';
 
 @Component({
@@ -37,5 +38,7 @@ export class SwitchMapDemoComponent {
     }),
     tap(console.log)
   );
+
+  public elementInDrawer: IImagesItem | null = null;
 
 }

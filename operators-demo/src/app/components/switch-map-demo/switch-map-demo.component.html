@@ -1,21 +1,34 @@
 <div class="demo">
 
-  <form class="search-panel" [formGroup]="form">
-    <mat-form-field appearance="outline" class="text">
-      <mat-label>Enter search text</mat-label>
-      <input matInput placeholder="..." formControlName="searchText" >
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="debounce">
-      <mat-label>Debounce time in Ms</mat-label>
-      <input matInput type="number" placeholder="Ms" formControlName="debounceTimeInMs">
-    </mat-form-field>
-  </form>
+  <mat-drawer-container class="example-container">
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <ng-container *ngIf="elementInDrawer">
+        <ng-container *ngFor="let el of elementInDrawer.data">
+          <h3>{{el.title}}</h3>
+          <div>{{el.description}}</div>
+        </ng-container>
+        <ng-container *ngFor="let el of elementInDrawer.links">
+          <img [src]="el.href">
+        </ng-container>
+      </ng-container>
+    </mat-drawer>
 
-  <ngx-masonry class="gallery" [options]="{ gutter: 10 }">
-    <div ngxMasonryItem class="masonry-item" *ngFor="let entry of imagesSource$ | async">
-      <img [src]="entry.links[0].href">
-     <!-- {{entry.data[0].title}} -->
-   </div>
-  </ngx-masonry>
+    <form class="search-panel" [formGroup]="form">
+      <mat-form-field appearance="outline" class="text">
+        <mat-label>Enter search text</mat-label>
+        <input matInput placeholder="..." formControlName="searchText" >
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="debounce">
+        <mat-label>Debounce time in Ms</mat-label>
+        <input matInput type="number" placeholder="Ms" formControlName="debounceTimeInMs">
+      </mat-form-field>
+    </form>
 
+    <ngx-masonry class="gallery" [options]="{ gutter: 10 }">
+      <div ngxMasonryItem class="masonry-item" *ngFor="let entry of imagesSource$ | async">
+        <img [src]="entry.links[0].href" (click)="elementInDrawer = entry; drawer.open()">
+     </div>
+    </ngx-masonry>
+
+  </mat-drawer-container>
 </div>

@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor'
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [AppComponent, SwitchMapDemoComponent],
@@ -23,7 +24,8 @@ import { NgxMasonryModule } from 'ngx-masonry';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    NgxMasonryModule
+    NgxMasonryModule,
+    MatSidenavModule
   ],
   providers: [
     {
