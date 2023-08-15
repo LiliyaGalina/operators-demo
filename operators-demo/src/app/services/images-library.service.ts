@@ -10,12 +10,8 @@ export class ImagesLibraryService {
 
   constructor(private http: HttpClient) { }
 
-  public list(q?: string): Observable<IImagesEnvelope> {
-    let url = 'https://images-api.nasa.go/search';
-    if (q) {
-      url += `?q=${q}`;
-    }
-
+  public list(q: string): Observable<IImagesEnvelope> {
+    let url = `https://images-api.nasa.gov/search?q=${q}`;
     return this.http.get<IImagesEnvelope>(url);
   }
 
