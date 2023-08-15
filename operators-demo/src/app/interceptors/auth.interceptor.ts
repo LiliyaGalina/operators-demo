@@ -16,10 +16,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   addApiKey(request: HttpRequest<any>) {
-    return request.clone({
-        setHeaders: {
-          Authorization: Constants.NASA_API_KEY
-        }
-    })
+    return request.clone();
   }
 }

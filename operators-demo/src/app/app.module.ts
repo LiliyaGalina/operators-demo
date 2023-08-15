@@ -17,9 +17,10 @@ import {
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ForkJoinDemoComponent } from './components/fork-join-demo/fork-join-demo.component';
 
 @NgModule({
-  declarations: [AppComponent, SwitchMapDemoComponent],
+  declarations: [AppComponent, SwitchMapDemoComponent, ForkJoinDemoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
