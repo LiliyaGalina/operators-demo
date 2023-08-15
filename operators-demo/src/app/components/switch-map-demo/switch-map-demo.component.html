@@ -1,1 +1,18 @@
-<p>switch-map-demo works!</p>
+<div class="demo">
+
+  <form class="search-panel" [formGroup]="form">
+    <mat-form-field appearance="outline" class="text">
+      <mat-label>Enter search text</mat-label>
+      <input matInput placeholder="..." formControlName="searchText" >
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="debounce">
+      <mat-label>Debounce time in Ms</mat-label>
+      <input matInput type="number" placeholder="Ms" formControlName="debounceTimeInMs">
+    </mat-form-field>
+  </form>
+
+  <div class="gallery">
+    <span *ngFor="let entry of imagesSource$ | async"></span>
+  </div>
+
+</div>
