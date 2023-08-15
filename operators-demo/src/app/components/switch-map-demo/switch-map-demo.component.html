@@ -1,5 +1,4 @@
 <div class="demo">
-
   <mat-drawer-container class="example-container">
     <mat-drawer #drawer class="example-sidenav" mode="side">
       <ng-container *ngIf="elementInDrawer">
@@ -24,6 +23,8 @@
       </mat-form-field>
     </form>
 
+    <mat-progress-bar class="progress" mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+
     <ngx-masonry class="gallery" [options]="{ gutter: 10 }">
       <div ngxMasonryItem class="masonry-item" *ngFor="let entry of imagesSource$ | async">
         <img [src]="entry.links[0].href" (click)="elementInDrawer = entry; drawer.open()">
@@ -31,8 +32,8 @@
     </ngx-masonry>
 
     <ng-container *ngIf="imagesSource$ | async as images">
-      <div *ngIf="images && !images?.length" class="nothing">
-        Nothing found by your search request
+      <div *ngIf="images && !images?.length && !(isLoading$ | async)" class="nothing">
+        Nothing found by your search criteria
       </div>
     </ng-container>
 

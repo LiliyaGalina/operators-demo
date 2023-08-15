@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { catchError, debounceTime, map, of, shareReplay, startWith, switchMap, tap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { catchError, debounceTime, EMPTY, finalize, map, of, shareReplay, startWith, Subject, switchMap, tap, throwError } from 'rxjs';
 import { IImagesItem } from 'src/app/models/images-envelope.interface';
 import { ImagesLibraryService } from 'src/app/services/images-library.service';
 
@@ -13,6 +14,9 @@ export class SwitchMapDemoComponent {
 
   private imagesLibraryService = inject(ImagesLibraryService);
   private fb = inject(FormBuilder);
+  private snackBar = inject(MatSnackBar);
+
+  public isLoading$ = new Subject<boolean>();
 
   public form = this.fb.group({
     searchText: this.fb.control<string>(''),
@@ -24,17 +28,21 @@ export class SwitchMapDemoComponent {
     startWith(this.form.getRawValue().debounceTimeInMs), // try to remove
     switchMap(debounceTimeInMs => {
       return this.form.controls['searchText'].valueChanges.pipe(
-        //startWith?
+        // debounce of search text input
         debounceTime(debounceTimeInMs), // try to remove
-        // filter?
         switchMap(searchText => {
-          // loading
+
+          this.isLoading$.next(true);
           return this.imagesLibraryService.search(searchText || '').pipe(
             map(collection => collection.collection.items.filter(i => !!i.links?.length)),
             catchError(err => {
-              console.error(err);
+              this.snackBar.open(err.error.reason);
               return of([]);
-            })
+              // explore alternatives
+              //return throwError(err.error.reason);
+              //return EMPTY;
+            }),
+            finalize(() => this.isLoading$.next(false))
           )
         })
       )

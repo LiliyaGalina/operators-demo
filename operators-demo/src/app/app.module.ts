@@ -8,10 +8,15 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SwitchMapDemoComponent } from './components/switch-map-demo/switch-map-demo.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './interceptors/auth.interceptor'
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [AppComponent, SwitchMapDemoComponent],
@@ -25,14 +30,18 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatInputModule,
     ReactiveFormsModule,
     NgxMasonryModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSnackBarModule,
+    MatProgressBarModule
   ],
   providers: [
+    MatSnackBarModule,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
     },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } },
   ],
   bootstrap: [AppComponent],
 })

@@ -16,18 +16,23 @@
       width: 20%;
     }
   }
-}
 
-.example-sidenav {
-  width: 500px;
-  padding: 30px;
-
-  img {
-    margin-top: 20px;
+  .progress {
     width: 100%;
   }
-}
 
-.nothing {
-  margin: 0 30px 30px 30px;
+  .example-sidenav {
+    width: 500px;
+    padding: 30px;
+
+    img {
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
+
+  .nothing {
+    margin: 0 30px 50px 30px;
+  }
+
 }
