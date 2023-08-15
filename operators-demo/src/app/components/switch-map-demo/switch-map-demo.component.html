@@ -30,5 +30,11 @@
      </div>
     </ngx-masonry>
 
+    <ng-container *ngIf="imagesSource$ | async as images">
+      <div *ngIf="images && !images?.length" class="nothing">
+        Nothing found by your search request
+      </div>
+    </ng-container>
+
   </mat-drawer-container>
 </div>
