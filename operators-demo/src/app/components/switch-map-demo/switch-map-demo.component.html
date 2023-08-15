@@ -11,8 +11,11 @@
     </mat-form-field>
   </form>
 
-  <div class="gallery">
-    <span *ngFor="let entry of imagesSource$ | async"></span>
-  </div>
+  <ngx-masonry class="gallery" [options]="{ gutter: 10 }">
+    <div ngxMasonryItem class="masonry-item" *ngFor="let entry of imagesSource$ | async">
+      <img [src]="entry.links[0].href">
+     <!-- {{entry.data[0].title}} -->
+   </div>
+  </ngx-masonry>
 
 </div>

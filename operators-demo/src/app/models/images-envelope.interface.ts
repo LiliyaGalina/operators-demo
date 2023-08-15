@@ -10,7 +10,13 @@ export interface IImagesEnvelope {
         media_type: string;
         nasa_id: string;
         title: string;
-      }>
+      }>;
+      href: string;
+      links: Array<{
+        href: string;
+        rel: string;
+        render: string;
+      }>;
     }>;
     links: Array<{
       href: string;

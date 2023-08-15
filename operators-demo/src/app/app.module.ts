@@ -10,6 +10,7 @@ import { SwitchMapDemoComponent } from './components/switch-map-demo/switch-map-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor'
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
   declarations: [AppComponent, SwitchMapDemoComponent],
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMasonryModule
   ],
   providers: [
     {
