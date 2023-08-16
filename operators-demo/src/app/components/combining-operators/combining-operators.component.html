@@ -1,0 +1,18 @@
+<div class="outputs">
+  <ng-container [ngTemplateOutlet]="channel" [ngTemplateOutletContext]="{ source: curiosityPhotoStream$, name: 'Curiosity', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0dBkV46uJkDLYJPMxedDV_Zlm9bsIZlIHQvdd8Adyzk7AgcPeLY5ZLlFqRFlmOp3J5JI&usqp=CAU' }"></ng-container>
+  <ng-container [ngTemplateOutlet]="channel" [ngTemplateOutletContext]="{ source: opportunityPhotoStream$, name: 'Opportunity', img: 'https://ychef.files.bbci.co.uk/976x549/p0dh43zd.jpg' }"></ng-container>
+  <ng-container [ngTemplateOutlet]="channel" [ngTemplateOutletContext]="{ source: spiritPhotoStream$, name: 'Spirit', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/KSC-03PD-0786.jpg/260px-KSC-03PD-0786.jpg' }"></ng-container>
+</div>
+
+<ng-template #channel let-name="name" let-img="img" let-photoSource$="source">
+  <div class="channel">
+    <div class="image-frame">
+      <img [src]="img">
+      <span class="rover-name">{{name}}</span>
+    </div>
+    <div class="pipe">
+      <img *ngFor="let photo of photoSource$ | async"
+      src="https://ychef.files.bbci.co.uk/976x549/p0dh43zd.jpg">
+    </div>
+  </div>
+</ng-template>

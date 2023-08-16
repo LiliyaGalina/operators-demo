@@ -41,11 +41,13 @@ export class ForkJoinDemoComponent {
       const emptyRequests = [] as Observable<INearEarthObjectWithOrbitalData>[];
       const fakeRequest = interval(500).pipe(map(_ => ({} as unknown as INearEarthObjectWithOrbitalData)));
 
-      const forkJoinTarget = [...neoRequests.slice(0, 2)];
+      const forkJoinTarget = emptyRequests;
       return forkJoin(forkJoinTarget).pipe(
+        // return without orbital data
         defaultIfEmpty(nearEarthObjects), // if collection was empty fork join completes immediately
         catchError((err) => {
           this.snackBar.open(err);
+          // return without orbital data
           return of(nearEarthObjects);
         }),
         finalize(() => {

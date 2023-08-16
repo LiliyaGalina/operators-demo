@@ -1,0 +1,46 @@
+$channel-heigh: 120px;
+
+.outputs {
+  display: flex;
+  flex-direction: column;
+
+  .channel {
+    height: $channel-heigh;
+    background-color: wheat;
+    border: 1px dotted black;
+    display: flex;
+    flex-direction: row;
+
+    .pipe {
+      display: flex;
+      flex-direction: row-reverse;
+      overflow-x: auto;
+      height: 100%;
+
+      img {
+        height: 100%;
+      }
+    }
+
+    .image-frame {
+      height: 100%;
+      position: relative;
+      min-width: 250px;
+      border-right: 1px dotted black;
+
+      .rover-name {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background-color: rgba(black, 0.5);
+        color: white;
+        font-weight: 500;
+        font-weight: 16px;
+      }
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+}
