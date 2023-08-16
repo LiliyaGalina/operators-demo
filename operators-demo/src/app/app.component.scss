@@ -1,0 +1,21 @@
+:host{
+  box-sizing: border-box;
+  display: block;
+  height: 100%;
+}
+
+#wrapper{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#tab-group{
+  height: 100%;
+}
+
+#tab-group mat-tab-body {
+  flex-grow: 1;
+}

@@ -18,6 +18,8 @@ import {
 } from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ForkJoinDemoComponent } from './components/fork-join-demo/fork-join-demo.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [AppComponent, SwitchMapDemoComponent, ForkJoinDemoComponent],
@@ -33,7 +35,9 @@ import { ForkJoinDemoComponent } from './components/fork-join-demo/fork-join-dem
     NgxMasonryModule,
     MatSidenavModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatCardModule,
+    MatExpansionModule
   ],
   providers: [
     MatSnackBarModule,

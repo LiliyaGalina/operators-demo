@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, debounceTime, EMPTY, finalize, map, of, shareReplay, startWith, Subject, switchMap, tap, throwError } from 'rxjs';
+import { catchError, debounceTime, EMPTY, finalize, map, Observable, of, shareReplay, startWith, Subject, switchMap, tap, throwError } from 'rxjs';
 import { IImagesItem } from 'src/app/models/images-envelope.interface';
 import { ImagesLibraryService } from 'src/app/services/images-library.service';
 
@@ -37,10 +37,10 @@ export class SwitchMapDemoComponent {
             map(collection => collection.collection.items.filter(i => !!i.links?.length)),
             catchError(err => {
               this.snackBar.open(err.error.reason);
-              return of([]);
+              //return of([]);
               // explore alternatives
               //return throwError(err.error.reason);
-              //return EMPTY;
+              return EMPTY;
             }),
             finalize(() => this.isLoading$.next(false))
           )
@@ -48,7 +48,11 @@ export class SwitchMapDemoComponent {
       )
     }),
     // shares this subscription between consumers
-    shareReplay(1) // try to remove
+    shareReplay(1), // try to remove
+    tap(data => {
+      console.log('%c Data log: ', 'background: pink;');
+      console.log(data);
+    })
   );
 
   public elementInDrawer: IImagesItem | null = null;

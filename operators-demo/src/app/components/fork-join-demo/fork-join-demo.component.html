@@ -1,3 +1,38 @@
 <div class="demo">
+  <h3 class="title">Asteroids closest to the Earth today</h3>
 
+    <mat-progress-bar class="progress" mode="indeterminate" *ngIf="isLoading$ | async"></mat-progress-bar>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let entry of asteroidsSource$ | async">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{entry.name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            <span *ngIf="entry.is_potentially_hazardous_asteroid" class="salmon">Potentially hazardous asteroid</span>
+            <span class="ml-16">{{entry.close_approach_data[0].miss_distance.kilometers}}(km)</span>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <b>
+            {{entry.estimated_diameter.kilometers.estimated_diameter_min}}-{{entry.estimated_diameter.kilometers.estimated_diameter_max}}(km diameter)
+          </b>
+          <div *ngIf="entry.orbital_data; else noOrbitalData" class="orbital-data">
+            <p>
+              Orbit class: {{entry.orbital_data.orbit_class.orbit_class_description}}
+            </p>
+            <p>
+              Orbit class range: {{entry.orbital_data.orbit_class.orbit_class_range}}
+            </p>
+            <p>
+              Orbit class type: {{entry.orbital_data.orbit_class.orbit_class_type}}
+            </p>
+          </div>
+          <ng-template #noOrbitalData>
+            <div class="salmon">No orbital data loaded</div>
+          </ng-template>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
 </div>
