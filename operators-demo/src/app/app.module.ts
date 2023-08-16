@@ -20,9 +20,10 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ForkJoinDemoComponent } from './components/fork-join-demo/fork-join-demo.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { SandboxComponent } from './components/sandbox/sandbox.component';
 
 @NgModule({
-  declarations: [AppComponent, SwitchMapDemoComponent, ForkJoinDemoComponent],
+  declarations: [AppComponent, SwitchMapDemoComponent, ForkJoinDemoComponent, SandboxComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

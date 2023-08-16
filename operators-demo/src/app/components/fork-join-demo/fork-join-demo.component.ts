@@ -55,7 +55,7 @@ export class ForkJoinDemoComponent {
     }),
     shareReplay(1),
     tap(data => {
-      console.log('%c Data log: ', 'background: yellow;');
+      console.log('%c Asteroids log: ', 'background: yellow;');
       console.log(data);
     })
   );

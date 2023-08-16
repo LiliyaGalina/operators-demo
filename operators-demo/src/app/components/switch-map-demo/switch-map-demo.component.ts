@@ -50,7 +50,7 @@ export class SwitchMapDemoComponent {
     // shares this subscription between consumers
     shareReplay(1), // try to remove
     tap(data => {
-      console.log('%c Data log: ', 'background: pink;');
+      console.log('%c Images log: ', 'background: pink;');
       console.log(data);
     })
   );
