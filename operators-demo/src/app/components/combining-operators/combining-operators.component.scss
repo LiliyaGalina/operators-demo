@@ -46,3 +46,14 @@ $channel-heigh: 120px;
     }
   }
 }
+
+.monitors {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  .timeline-wrapper {
+    flex: 50%;
+    padding: 30px;
+  }
+}

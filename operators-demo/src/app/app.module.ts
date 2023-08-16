@@ -23,9 +23,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
 import { CombiningOperatorsComponent } from './components/combining-operators/combining-operators.component';
 import { AutoscrollDirective } from './directives/autoscroll.directive';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 @NgModule({
-  declarations: [AppComponent, SwitchMapDemoComponent, ForkJoinDemoComponent, SandboxComponent, CombiningOperatorsComponent, AutoscrollDirective],
+  declarations: [AppComponent, SwitchMapDemoComponent, ForkJoinDemoComponent, SandboxComponent, CombiningOperatorsComponent, AutoscrollDirective, TimelineComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

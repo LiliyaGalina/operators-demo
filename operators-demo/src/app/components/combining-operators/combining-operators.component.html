@@ -5,6 +5,17 @@
   </ng-container>
 </div>
 
+<div class="monitors">
+  <div class="timeline-wrapper">
+    <h3>Combine latest</h3>
+    <app-timeline></app-timeline>
+  </div>
+  <div class="timeline-wrapper">
+    <h3>Merge</h3>
+    <app-timeline></app-timeline>
+  </div>
+</div>
+
 <ng-template #channel let-name="name" let-img="coverImg" let-photoSource$="photoStream$">
   <div class="channel">
     <div class="image-frame">
