@@ -21,13 +21,13 @@ export class CombiningOperatorsComponent {
   private roverPhotosService = inject(RoverPhotosService);
   private snackBar = inject(MatSnackBar);
 
-  private curiosity = this.buildRoverChannel('curiosity', 7345, '2016-6-3', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0dBkV46uJkDLYJPMxedDV_Zlm9bsIZlIHQvdd8Adyzk7AgcPeLY5ZLlFqRFlmOp3J5JI&usqp=CAU');
+  private curiosity = this.buildRoverChannel('curiosity', 3345, '2016-6-3', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0dBkV46uJkDLYJPMxedDV_Zlm9bsIZlIHQvdd8Adyzk7AgcPeLY5ZLlFqRFlmOp3J5JI&usqp=CAU');
   private opportunity = this.buildRoverChannel('opportunity', 5234, '2016-6-3', 'https://ychef.files.bbci.co.uk/976x549/p0dh43zd.jpg');
   private spirit = this.buildRoverChannel('spirit', 1256, '2006-6-3', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/KSC-03PD-0786.jpg/260px-KSC-03PD-0786.jpg');
 
   public rovers = [this.curiosity, this.opportunity, this.spirit];
 
-  private buildRoverChannel(name: string, intervalMs: number, dateOfObservation: string, coverImg: string) {
+  private buildRoverChannel(name: string, intervalMs: number, dateOfObservation: string | null, coverImg: string) {
     const stream$ = this.roverPhotosService
     .requestPhotosFromRover(name, dateOfObservation)
     .pipe(

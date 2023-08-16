@@ -9,7 +9,10 @@ import { Constants } from '../classes/constants.class';
 export class RoverPhotosService {
   private http = inject(HttpClient);
 
-  public requestPhotosFromRover(name: string, earthDate: string): Observable<any> {
+  public requestPhotosFromRover(name: string, earthDate: string | null): Observable<any> {
+    if (!earthDate) {
+      earthDate = new Date().toISOString().split('T')[0];
+    }
     const url = `https://api.nasa.gov/mars-photos/api/v1/rovers/${name}/photos?earth_date=${earthDate}&api_key=${Constants.NASA_API_KEY}`;
     return this.http.get<any>(url).pipe(map(arr => arr.photos.map((x: { img_src: any; }) => x.img_src)));
   }
