@@ -41,6 +41,7 @@ export class CombiningOperatorsComponent {
     );
     const photoStream$ = stream$.pipe(
       scan((arr, n) => [...arr, n], [] as any[]),
+      shareReplay(1)
     )
     return { name, stream$, photoStream$, coverImg }
   }

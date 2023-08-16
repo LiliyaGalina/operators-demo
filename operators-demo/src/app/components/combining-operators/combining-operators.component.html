@@ -11,7 +11,7 @@
       <img [src]="img">
       <span class="rover-name">{{name}}</span>
     </div>
-    <div class="pipe">
+    <div class="pipe" [appAutoscroll]="photoSource$">
       <ng-container *ngFor="let photo of photoSource$ | async">
         <img [src]="photo">
       </ng-container>

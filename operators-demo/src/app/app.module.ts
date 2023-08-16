@@ -22,9 +22,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SandboxComponent } from './components/sandbox/sandbox.component';
 import { CombiningOperatorsComponent } from './components/combining-operators/combining-operators.component';
+import { AutoscrollDirective } from './directives/autoscroll.directive';
 
 @NgModule({
-  declarations: [AppComponent, SwitchMapDemoComponent, ForkJoinDemoComponent, SandboxComponent, CombiningOperatorsComponent],
+  declarations: [AppComponent, SwitchMapDemoComponent, ForkJoinDemoComponent, SandboxComponent, CombiningOperatorsComponent, AutoscrollDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,
