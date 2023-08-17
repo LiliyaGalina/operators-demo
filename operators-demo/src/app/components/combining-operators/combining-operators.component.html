@@ -8,18 +8,20 @@
 <div class="monitors">
   <div class="timeline-wrapper">
     <h3>Combine latest</h3>
-    <div class="timeline" [appAutoscroll]="combineLatest$" [isHorizontal]="true">
-      <img *ngFor="let item of combineLatest$ | async" [src]="item.data.photo"
-      [style.top.px]="(item.timeElapsed / 10)"
-      [style.left.%]="item.roverIndex * 33">
+    <div class="timeline" [appAutoscroll]="combineLatest$" [isVertical]="true">
+      <ng-container *ngFor="let tuple of combineLatest$ | async">
+        <img *ngFor="let item of tuple.data" [src]="item.photo"
+        [style.top.px]="(tuple.timeElapsed / 10)" [title]="rovers[item.roverIndex].name"
+        [style.left.%]="item.roverIndex * 33">
+      </ng-container>
     </div>
   </div>
   <div class="timeline-wrapper">
     <h3>Merge</h3>
-    <div class="timeline" [appAutoscroll]="merge$" [isHorizontal]="true">
+    <div class="timeline" [appAutoscroll]="merge$" [isVertical]="true">
       <img *ngFor="let item of merge$ | async" [src]="item.data.photo"
-      [style.top.px]="(item.timeElapsed / 10)"
-      [style.left.%]="item.roverIndex * 33">
+      [style.top.px]="(item.timeElapsed / 10)" [title]="rovers[item.roverIndex].name"
+      [style.left.%]="item.data.roverIndex * 33">
     </div>
   </div>
 </div>

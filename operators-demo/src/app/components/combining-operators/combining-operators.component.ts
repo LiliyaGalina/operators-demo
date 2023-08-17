@@ -31,25 +31,21 @@ export class CombiningOperatorsComponent {
   public rovers = [this.curiosity, this.opportunity, this.spirit];
 
   public merge$ = merge(
-    this.curiosity.stream$.pipe(map((data, i) => ({ roverIndex: 0, data }))),
-    this.opportunity.stream$.pipe(map((data, i) => ({ roverIndex: 1, data }))),
-    this.spirit.stream$.pipe(map((data, i) => ({ roverIndex: 2, data }))),
+    this.rovers.map((rover, roverIndex) => rover.stream$.pipe(map(photo => ({ roverIndex, photo }))))
+    // this.curiosity.stream$.pipe(map(photo => ({ roverIndex: 0, photo }))),
+    // this.opportunity.stream$.pipe(map(photo => ({ roverIndex: 1, photo }))),
+    // this.spirit.stream$.pipe(map(photo => ({ roverIndex: 2, photo }))),
   ).pipe(
-    map((value: any) => ({...value, timeElapsed: new Date().getTime() - this.now.getTime()})),
+    map(data => ({data, timeElapsed: new Date().getTime() - this.now.getTime()})),
     scan((arr, n: any) => [...arr, n], [] as any[]),
     shareReplay(1)
   );
 
   public combineLatest$ = combineLatest(
-    this.curiosity.stream$.pipe(map((data, i) => ({ roverIndex: 0, data}))),
-    this.opportunity.stream$.pipe(map((data, i) => ({ roverIndex: 1, data}))),
-    this.spirit.stream$.pipe(map((data, i) => ({ roverIndex: 2, data}))),
+    this.rovers.map((rover, roverIndex) => rover.stream$.pipe(map(photo => ({ roverIndex, photo }))))
   ).pipe(
-    map((value: [any, any, any]) => value.map(v => ({...v, timeElapsed: new Date().getTime() - this.now.getTime()}))),
-    scan((arr, n) => [...arr, ...n], [] as any[]),
-    tap( _ => {
-      this.changeDetectorRef.markForCheck();
-    }),
+    map(data => ({data, timeElapsed: new Date().getTime() - this.now.getTime()})),
+    scan((arr, n) => [...arr, n], [] as any[]),
     shareReplay(1)
   );
 
@@ -60,9 +56,7 @@ export class CombiningOperatorsComponent {
       switchMap((photos) =>
         interval(intervalMs).pipe(
           take(photos.length),
-          map((val, i) => {
-            return { photo: photos[i], timeMs: val * intervalMs };
-          })
+          map((val, i) => photos[i])
         )
       ),
       shareReplay(1)
