@@ -8,8 +8,8 @@ import { filter, interval, map, scan, tap } from 'rxjs';
 })
 export class SandboxComponent {
   public source$ = interval(500).pipe(
-    map((v, index) => index + 1),
-    map((v) => ({ value: v, color: this.generateRandomColor() })),
+    map(index => index + 1),
+    map(value => ({ value, color: this.generateRandomColor() })),
     scan((arr, n) => [...arr, n], new Array<{ value: any; color: string }>())
   );
 
