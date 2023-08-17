@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   catchError,
@@ -26,6 +26,10 @@ import { RoverPhotosService } from 'src/app/services/rover-photos.service';
   styleUrls: ['./combining-operators.component.scss'],
 })
 export class CombiningOperatorsComponent {
+
+  @ViewChild('combineLatestMonitor') combineLatestMonitor!: ElementRef;
+  @ViewChild('mergeMonitor') mergeMonitor!: ElementRef;
+
   private roverPhotosService = inject(RoverPhotosService);
   private snackBar = inject(MatSnackBar);
   private now = new Date();
@@ -51,7 +55,7 @@ export class CombiningOperatorsComponent {
     map(data => ({data, timeElapsed: new Date().getTime() - this.now.getTime()})),
     scan((arr, n) => [...arr, n], [] as any[]),
     catchError(err => {
-      this.snackBar.open('CombineLatest monitor observed error: ' + err);
+      this.snackBar.open('CombineLatest monitor observed error: ' + err)
       return EMPTY;
     }),
     shareReplay(1)
