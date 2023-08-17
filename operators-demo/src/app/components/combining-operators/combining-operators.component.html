@@ -1,7 +1,7 @@
 <div class="outputs">
-  <ng-container *ngFor="let rovers of rovers">
+  <ng-container *ngFor="let rover of rovers">
     <ng-container [ngTemplateOutlet]="channel"
-    [ngTemplateOutletContext]="rovers"></ng-container>
+    [ngTemplateOutletContext]="rover"></ng-container>
   </ng-container>
 </div>
 
@@ -20,7 +20,7 @@
     <h3>Merge</h3>
     <div class="timeline" [appAutoscroll]="merge$" [isVertical]="true">
       <img *ngFor="let item of merge$ | async" [src]="item.data.photo"
-      [style.top.px]="(item.timeElapsed / 10)" [title]="rovers[item.roverIndex].name"
+      [style.top.px]="(item.timeElapsed / 10)"
       [style.left.%]="item.data.roverIndex * 33">
     </div>
   </div>
@@ -33,8 +33,8 @@
       <span class="rover-name">{{name}}</span>
     </div>
     <div class="pipe" [appAutoscroll]="photoSource$">
-      <ng-container *ngFor="let data of photoSource$ | async">
-        <img [src]="data.photo">
+      <ng-container *ngFor="let photo of photoSource$ | async">
+        <img [src]="photo">
       </ng-container>
     </div>
   </div>

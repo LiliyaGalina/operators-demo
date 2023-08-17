@@ -15,7 +15,7 @@ export class AutoscrollDirective implements OnInit, OnDestroy {
     this.subscription = this.stream$?.pipe(
         tap(_ => {
           if (this.isVertical) {
-            this.el.nativeElement.scrollTo({ top: (this.el.nativeElement.scrollHeight + 150), behavior: 'smooth' });
+            this.el.nativeElement.scrollTo({ top: (this.el.nativeElement.scrollHeight + 400), behavior: 'smooth' });
           } else {
             this.el.nativeElement.scrollTo({ left: (this.el.nativeElement.scrollLeft + 150), behavior: 'smooth' });
           }

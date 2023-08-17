@@ -31,7 +31,7 @@ export class CombiningOperatorsComponent {
   public rovers = [this.curiosity, this.opportunity, this.spirit];
 
   public merge$ = merge(
-    this.rovers.map((rover, roverIndex) => rover.stream$.pipe(map(photo => ({ roverIndex, photo }))))
+    ...this.rovers.map((rover, roverIndex) => rover.stream$.pipe(map(photo => ({ roverIndex, photo }))))
     // this.curiosity.stream$.pipe(map(photo => ({ roverIndex: 0, photo }))),
     // this.opportunity.stream$.pipe(map(photo => ({ roverIndex: 1, photo }))),
     // this.spirit.stream$.pipe(map(photo => ({ roverIndex: 2, photo }))),
