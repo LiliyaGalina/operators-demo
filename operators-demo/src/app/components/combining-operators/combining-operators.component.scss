@@ -63,6 +63,15 @@ $channel-heigh: 120px;
       overflow-y: auto;
       background-color: white;
 
+      &.error {
+        background-color: salmon;
+      }
+
+      &.finalized {
+        opacity: .4;
+        border: 2px dotted black;
+      }
+
       img {
         width: 33%;
         position: absolute;

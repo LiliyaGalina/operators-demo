@@ -3,11 +3,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   catchError,
   combineLatest,
+  defaultIfEmpty,
+  defer,
   delay,
   EMPTY,
+  endWith,
+  finalize,
+  ignoreElements,
   interval,
   map,
   merge,
+  NEVER,
   Observable,
   of,
   scan,
@@ -45,20 +51,45 @@ export class CombiningOperatorsComponent {
     map(data => ({data, timeElapsed: new Date().getTime() - this.now.getTime()})),
     scan((arr, n: any) => [...arr, n], [] as any[]),
     catchError(err => {
-      this.snackBar.open('Merge monitor observed error: ' + err);
-      return EMPTY;
+      const message = 'Merge monitor observed error: ' + err;
+      this.snackBar.open(message);
+      return throwError(message)
     }),
     shareReplay(1)
   );
 
   public combineLatest$ = combineLatest(this.roverStreams).pipe(
+    defaultIfEmpty([]),
     map(data => ({data, timeElapsed: new Date().getTime() - this.now.getTime()})),
     scan((arr, n) => [...arr, n], [] as any[]),
     catchError(err => {
-      this.snackBar.open('CombineLatest monitor observed error: ' + err)
-      return EMPTY;
+      const message = 'CombineLatest monitor observed error: ' + err;
+      this.snackBar.open(message);
+      return throwError(message)
     }),
     shareReplay(1)
+  );
+
+  public combineLatestErrors$ = this.combineLatest$.pipe(
+    ignoreElements(),
+    catchError(err => of(true))
+  );
+
+  public combineLatestFinalize$ = this.combineLatest$.pipe(
+    ignoreElements(),
+    catchError(err => EMPTY),
+    endWith(true)
+  );
+
+  public mergeErrors$ = this.merge$.pipe(
+    ignoreElements(),
+    catchError(err => of(true))
+  );
+
+  public mergeFinalize$ = this.merge$.pipe(
+    ignoreElements(),
+    catchError(err => EMPTY),
+    endWith(true)
   );
 
   private buildRoverChannel(name: string, intervalMs: number, dateOfObservation: string | null, coverImg: string) {
@@ -79,5 +110,4 @@ export class CombiningOperatorsComponent {
     )
     return { name, stream$, photoStream$, coverImg }
   }
-
 }

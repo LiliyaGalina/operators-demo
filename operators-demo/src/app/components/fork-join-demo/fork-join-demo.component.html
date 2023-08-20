@@ -7,14 +7,14 @@
       <mat-expansion-panel *ngFor="let entry of asteroidsSource$ | async">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{entry.name}}
+            {{entry?.name}}
           </mat-panel-title>
-          <mat-panel-description>
+          <mat-panel-description *ngIf="entry">
             <span *ngIf="entry.is_potentially_hazardous_asteroid" class="salmon">Potentially hazardous asteroid</span>
             <span class="ml-16">{{entry.close_approach_data[0].miss_distance.kilometers}}(km)</span>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <div>
+        <div *ngIf="entry">
           <b>
             {{entry.estimated_diameter.kilometers.estimated_diameter_min}}-{{entry.estimated_diameter.kilometers.estimated_diameter_max}}(km diameter)
           </b>

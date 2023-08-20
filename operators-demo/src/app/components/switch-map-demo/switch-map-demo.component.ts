@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, debounceTime, EMPTY, finalize, map, Observable, of, shareReplay, startWith, Subject, switchMap, tap, throwError } from 'rxjs';
+import { catchError, combineLatest, debounceTime, EMPTY, finalize, map, Observable, of, ReplaySubject, shareReplay, startWith, Subject, switchMap, tap, throwError } from 'rxjs';
 import { IImagesItem } from 'src/app/models/images-envelope.interface';
 import { ImagesLibraryService } from 'src/app/services/images-library.service';
 
@@ -20,7 +20,7 @@ export class SwitchMapDemoComponent {
 
   public form = this.fb.group({
     searchText: this.fb.control<string>(''),
-    debounceTimeInMs: this.fb.nonNullable.control<number>(50),
+    debounceTimeInMs: this.fb.nonNullable.control<number>(500),
   });
 
   public imagesSource$ = this.form.controls['debounceTimeInMs'].valueChanges.pipe(
@@ -37,10 +37,7 @@ export class SwitchMapDemoComponent {
             map(collection => collection.collection.items.filter(i => !!i.links?.length)),
             catchError(err => {
               this.snackBar.open(err.error.reason);
-              //return of([]);
-              // explore alternatives
-              //return throwError(err.error.reason);
-              return EMPTY;
+              return of([]);
             }),
             finalize(() => this.isLoading$.next(false))
           )

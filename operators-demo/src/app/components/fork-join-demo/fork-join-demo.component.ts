@@ -3,7 +3,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   BehaviorSubject,
   catchError,
+  combineLatest,
   defaultIfEmpty,
+  EMPTY,
   finalize,
   forkJoin,
   interval,
@@ -38,11 +40,11 @@ export class ForkJoinDemoComponent {
     }),
     switchMap((nearEarthObjects) => {
       const neoRequests = nearEarthObjects.map(n => this.asteroidsService.findSmallBodyByNeoId(n.neo_reference_id));
-      const emptyRequests = [] as Observable<INearEarthObjectWithOrbitalData>[];
-      const fakeRequest = interval(500).pipe(map(_ => ({} as unknown as INearEarthObjectWithOrbitalData)));
+      // const emptyRequests = [] as Observable<INearEarthObjectWithOrbitalData>[];
+      // const nonCompletingRequest = interval(1000).pipe(map(_ => (null as unknown as INearEarthObjectWithOrbitalData)));
+      // const forkJoinTarget = emptyRequests; // !!!!!
 
-      const forkJoinTarget = emptyRequests;
-      return forkJoin(forkJoinTarget).pipe(
+      return forkJoin([neoRequests[0]]).pipe(
         // return without orbital data
         defaultIfEmpty(nearEarthObjects), // if collection was empty fork join completes immediately
         catchError((err) => {
