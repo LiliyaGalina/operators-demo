@@ -44,7 +44,7 @@ export class ForkJoinDemoComponent {
       // const nonCompletingRequest = interval(1000).pipe(map(_ => (null as unknown as INearEarthObjectWithOrbitalData)));
       // const forkJoinTarget = emptyRequests; // !!!!!
 
-      return forkJoin([neoRequests[0]]).pipe(
+      return forkJoin(neoRequests).pipe(
         // return without orbital data
         defaultIfEmpty(nearEarthObjects), // if collection was empty fork join completes immediately
         catchError((err) => {

@@ -4,27 +4,31 @@ import {
   catchError,
   combineLatest,
   defaultIfEmpty,
-  defer,
-  delay,
   EMPTY,
   endWith,
-  finalize,
   ignoreElements,
   interval,
   map,
   merge,
-  NEVER,
   Observable,
   of,
   scan,
   shareReplay,
   switchMap,
   take,
-  tap,
   throwError,
-  timeout,
 } from 'rxjs';
 import { RoverPhotosService } from 'src/app/services/rover-photos.service';
+
+type RoverPhoto = {
+  roverIndex: number;
+  photo: string;
+}
+
+type RoverPhotoInTimeScale = {
+  data: RoverPhoto | RoverPhoto[];
+  timeElapsed: number;
+}
 
 @Component({
   selector: 'app-combining-operators',
@@ -45,11 +49,12 @@ export class CombiningOperatorsComponent {
   private spirit = this.buildRoverChannel('spirit', 2256, '2006-6-3', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/KSC-03PD-0786.jpg/260px-KSC-03PD-0786.jpg');
 
   public rovers = [this.curiosity, this.opportunity, this.spirit];
-  private roverStreams = this.rovers.map((rover, roverIndex) => rover.stream$.pipe(map(photo => ({ roverIndex, photo }))));
+  private roverStreams: Observable<RoverPhoto>[] = this.rovers.map((rover, roverIndex) => rover.stream$
+    .pipe(map(photo => ({ roverIndex, photo: photo.img_src }))));
 
   public merge$ = merge(...this.roverStreams).pipe(
     map(data => ({data, timeElapsed: new Date().getTime() - this.now.getTime()})),
-    scan((arr, n: any) => [...arr, n], [] as any[]),
+    scan((arr, n) => [...arr, n], new Array<RoverPhotoInTimeScale>()),
     catchError(err => {
       const message = 'Merge monitor observed error: ' + err;
       this.snackBar.open(message);
@@ -59,9 +64,9 @@ export class CombiningOperatorsComponent {
   );
 
   public combineLatest$ = combineLatest(this.roverStreams).pipe(
-    defaultIfEmpty([]),
-    map(data => ({data, timeElapsed: new Date().getTime() - this.now.getTime()})),
-    scan((arr, n) => [...arr, n], [] as any[]),
+    defaultIfEmpty(new Array<RoverPhoto>()),
+    map(data => ({data, timeElapsed: new Date().getTime() - this.now.getTime()} as RoverPhotoInTimeScale)),
+    scan((arr, n) => [...arr, n], new Array<RoverPhotoInTimeScale>()),
     catchError(err => {
       const message = 'CombineLatest monitor observed error: ' + err;
       this.snackBar.open(message);
@@ -105,7 +110,7 @@ export class CombiningOperatorsComponent {
       shareReplay(1)
     );
     const photoStream$ = stream$.pipe(
-      scan((arr, n) => [...arr, n], [] as any[]),
+      scan((arr, n) => [...arr, n.img_src], [] as string[]),
       shareReplay(1)
     )
     return { name, stream$, photoStream$, coverImg }
